@@ -46,7 +46,7 @@ table{
 }
 .imagen-fondo-eliminar{
     height: 100vh;
-    background-image: url(./img/sasuke.jpg);
+    background-image: url("https://img3.wallspic.com/previews/5/1/2/3/7/173215/173215-akame_ga_matar-akame-anime-evento-magenta-x750.jpg");
     background-size: cover;
     display: flex;
     /* justify-content: center; */
@@ -105,7 +105,7 @@ span{
     background-color: white;
     border: 1px solid lightslategray;
     border-radius: 5px;
-    background-image: url(./img/sasuke.jpg);
+    background-image: url("https://img1.wallspic.com/previews/4/3/7/5/5/155734/155734-goku-zamasu-vegeta-gohan-dragon_ball-x750.jpg");
     background-size: cover;
     text-align:start;
 }
