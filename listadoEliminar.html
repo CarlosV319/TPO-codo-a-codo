@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="./img/logotpo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700;800&display=swap" rel="stylesheet">
+    <title>TPO Final</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+   
+  <div class="imagen-fondo-eliminar">
+    <a class="a" href="index.html"><h1 class="titulo">Anime<span>Favs</span></h1></a>
+
+      <table>
+          <thead>
+              <tr>
+                  <th>Código</th>
+              
+                
+               
+             
+              </tr>
+          </thead>
+          <tbody>
+              <tr v-for="anime in animes">
+                  <td>{{ anime.id }}</td>
+                 
+                
+                  <td align="right">{{ anime.precio }}</td>
+                  <td><button @click="eliminarAnime(anime.id)">Eliminar</button></td>
+              </tr>
+          </tbody>
+      </table>
+            
+        
+     
+    
+    
+
+  </div>
+     
+      
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        //const URL = "http://127.0.0.1:5000/"
+        const URL = "https://caval.pythonanywhere.com/"
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    animes: []
+                }
+            },
+            methods: {
+                obtenerAnimes() {
+                    // Obtenemos el contenido del inventario
+                    fetch(URL + 'animes')
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json(); // Parseamos la respuesta JSON
+                            } else {
+                                // Si hubo un error, lanzar explícitamente una excepción
+                                // para ser "catcheada" más adelante
+                                throw new Error('Error al obtener los animes.');
+                            }
+                        })
+                        .then(data => {
+                            // El código Vue itera este elemento para generar la tabla
+                            this.animes = data;
+                        })
+                        .catch(error => {
+                            console.log('Error:', error);
+                            alert('Error al obtener los animes.');
+                        });
+                },
+                eliminarAnime(id) {
+                    // Eliminamos el producto de la fila seleccionada
+                    fetch(URL + `animes/${id}`, { method: 'DELETE' })
+                        .then(response => {
+                            if (response.ok) {
+                                // Eliminar el producto de la lista después de eliminarlo en el servidor
+                                this.animes = this.animes.filter(anime => anime.id !== id);
+                                console.log('anime eliminado correctamente.');
+                            } else {
+                                // Si hubo un error, lanzar explícitamente una excepción
+                                // para ser "catcheada" más adelante
+                                throw new Error('Error al eliminar el anime.');
+                            }
+                        })
+                        .catch(error => {
+                            // Código para manejar errores
+                            alert('Error al eliminar el anime.');
+                        });
+                }
+            },
+            mounted() {
+                //Al cargar la página, obtenemos la lista de productos
+                this.obtenerAnimes();
+            }
+        });
+
+        app.mount('body');
+    </script>
+</body>
+</html>
