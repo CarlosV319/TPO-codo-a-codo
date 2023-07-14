@@ -37,7 +37,7 @@ table{
 
 .imagen-fondo{
     height: 100vh;
-    background-image: url(./img/sasuke.jpg);
+    background-image: url(/img/sasuke.jpg);
     background-size: cover;
   
 }
